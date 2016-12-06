@@ -4,7 +4,7 @@ var logger = require('morgan')
 var router = require('./router/router')
 var app = express()
 
-const port = 3000
+const port = 80
 
 app.use(express.static(path.join(__dirname, 'public')))
 console.log(path.join(__dirname, 'public'))
