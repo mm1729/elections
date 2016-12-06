@@ -107,8 +107,18 @@ function getDataFromServer(year, electionType) {
     if(year == 2006 && electionType == 'house') {
       console.log("pre: ");
       console.log(data['house']['2006']);
+
+      var none_party = 0;
+      for(var i in data[electionType][year]) {
+        console.log(i+ " " +data[electionType][year][i].party);
+        if(data[electionType][year][i].party == "None") {
+          none_party++;
+        }
+      }
+      console.log(none_party);
     }
-    for(i in sdata) {
+
+    for(var i in sdata) {
       var state = i;
       var demCount = 0;
       var repCount = 0;
@@ -148,19 +158,23 @@ function getDataFromServer(year, electionType) {
         designation = 'Other';
       }
 
-      legendData[state] = {
+      data[electionType][year][state] = {
         "fillKey" : designation,
         "party":  designation
       };
     }
 
-    data[electionType][year] = legendData;
+    //data[electionType][year] = legendData;
     var none_party = 0;
-    for(i in data[electionType][year]) {
-      
+    for(var i in data[electionType][year]) {
+      console.log(i+ " " +data[electionType][year][i].party);
+      if(data[electionType][year][i].party == "None") {
+        none_party++;
+      }
     }
+    console.log(none_party);
     console.log("election Type: " + electionType, " year: " + year);
-    console.log("num data states: " + Object.keys(legendData).length)
+    //console.log("num data states: " + Object.keys(legendData).length)
     if(year == 2006 && electionType == 'house') {
       console.log("post: ");
       console.log(data['house'][2006]);

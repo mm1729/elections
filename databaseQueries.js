@@ -31,14 +31,41 @@ db.getStates = function(next) {
       next({'err' : err});
     }
 
-    var query = 'SELECT * from relations_state'
+    var query = 'SELECT * from state_district'
 
     connection.query(query, function(err, rows, fields) {
       connection.release()
       if(!err) {
         var data = []
         for(i in rows) {
-          data.push(row[i])
+          data.push(rows[i])
+        }
+        next({'data': data})
+      } else {
+        next({'err': err})
+      }
+    })
+
+    connection.on('error', function(err) {
+      next({'err': err})
+    })
+  })
+}
+
+db.getParty = function(next) {
+  pool.getConnection(function(err, connection) {
+    if(err) {
+      next({'err' : err});
+    }
+
+    var query = 'SELECT * from relations_party'
+
+    connection.query(query, function(err, rows, fields) {
+      connection.release()
+      if(!err) {
+        var data = []
+        for(i in rows) {
+          data.push(rows[i])
         }
         next({'data': data})
       } else {

@@ -13,8 +13,14 @@ router.get('/search', function(req, res) {
 
 })
 
-router.get('/states', function(req, res) {
+router.get('/state', function(req, res) {
   db.getStates(function(resp) {
+    res.send(resp)
+  })
+})
+
+router.get('/party', function(req, res) {
+  db.getParty(function(resp) {
     res.send(resp)
   })
 })
