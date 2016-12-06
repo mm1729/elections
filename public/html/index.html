@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>US Elections</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/index.css">
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">US Elections</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/search">Search Data</a></li>
+            <li><a href="#president">How to make a President?</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+          <h4>House</h4>
+        </div>
+        <div class="col-md-3 col-md-offset-3">
+          <h4>Senate</h4>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-1">
+          <ul class="nav nav-pills nav-stacked smallNav yearSelector" id="selhouse">
+            <li class="active"><a href="#" data-toggle="tab">2006</a></li>
+            <li><a href="#" data-toggle="tab">2008</a></li>
+            <li><a href="#" data-toggle="tab">2010</a></li>
+            <li><a href="#" data-toggle="tab">2012</a></li>
+            <li><a href="#" data-toggle="tab">2014</a></li>
+          </ul>
+        </div>
+        <div class="col-md-5">
+          <div id="house" style="width: 500px; height: 300px;"></div>
+        </div>
+        <div class="col-md-1">
+          <ul class="nav nav-pills nav-stacked smallNav yearSelector" id="selsenate">
+            <li class="active"><a href="#" data-toggle="tab">2006</a></li>
+            <li><a href="#" data-toggle="tab">2008</a></li>
+            <li><a href="#" data-toggle="tab">2010</a></li>
+            <li><a href="#" data-toggle="tab">2012</a></li>
+            <li><a href="#" data-toggle="tab">2014</a></li>
+          </ul>
+        </div>
+        <div class="col-md-5">
+          <div id="senate" style="width: 500px; height: 300px;"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-md-offset-6">
+          <h4>Presidential</h4>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-1 col-md-offset-3">
+          <ul class="nav nav-pills nav-stacked smallNav yearSelector" id="selpresidential">
+            <li class="active"><a href="#" data-toggle="tab">2008</a></li>
+            <li><a href="#" data-toggle="tab">2012</a></li>
+          </ul>
+        </div>
+        <div class="col-md-8">
+          <div id="presidential" style="width: 500px; height: 300px;"></div>
+        </div>
+      </div>
+
+      <!-- Button trigger modal -->
+<button type="button" data-toggle="modal" data-target="#stateView" id="modalButton" style="display:none;"></button>
+
+<!-- Modal -->
+<div class="modal fade" id="stateView" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="stateViewTitle"></h4>
+      </div>
+      <div class="modal-body">
+        <div id="modal-data">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div><!-- /.container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- DataMaps core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+    <script src="/js/datamaps.usa.min.js"></script>
+
+    <script src="/js/electionData.js"></script>
+
+  </body>
+</html>

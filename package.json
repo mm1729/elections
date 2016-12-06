@@ -1,0 +1,19 @@
+{
+  "name": "elections",
+  "version": "1.0.0",
+  "description": "A web application built for the CS336 class that analyzes US Federal Elections",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon index.js"
+  },
+  "author": "Moulindra Muchumari",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "mysql": "^2.12.0",
+    "nodemon": "^1.11.0"
+  },
+  "env":"development"
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>US Elections</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/index.css">
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">US Elections</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li class="active"><a href="./searchData.html">Search Data</a></li>
+            <li><a href="#president">How to make a President?</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="form text-center">
+        <h4>Search for a candidate's history or filter election results by year, state, district, party, and election type</h4>
+      </div>
+      <hr>
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label for="candidateName" class="col-sm-2 col-sm-offset-1 control-label">Candidate Name</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" id="candidateName">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="electionType" class="col-sm-2 col-sm-offset-1 control-label">Election Type</label>
+          <div id="electionType" class="col-sm-6">
+            <label class="checkbox-inline">
+              <input type="checkbox" id="houseElection" value="houseElection"> House
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox" id="senateElection" value="senateElection"> Senate
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox" id="presidentialElection" value="presidentialElection"> Presidential
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="year" class="col-sm-2 col-sm-offset-1 control-label">Year</label>
+          <div id="year" class="col-sm-6">
+            <label class="checkbox-inline">
+              <input type="checkbox"> 2006
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox"> 2008
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox"> 2010
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox"> 2012
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox"> 2014
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="party" class="col-sm-2 col-sm-offset-1 control-label">Party</label>
+          <div class="col-sm-6">
+            <select class="form-control" id="party" multiple>
+              <option>Democrats</option>
+              <option>Republican</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="state" class="col-sm-2 col-sm-offset-1 control-label">State</label>
+          <div class="col-sm-6">
+            <select class="form-control" id="state" multiple>
+              <option>New Jersey</option>
+              <option>New York</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="district" class="col-sm-2 col-sm-offset-1 control-label">District</label>
+          <div class="col-sm-6">
+            <select class="form-control" multiple>
+              <option>01</option>
+              <option>02</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-offset-5">
+          <button class="btn btn-lg btn-success" name="submit">Submit</button>
+        </div>
+      </form>
+    <div id="dataTable">
+      <hr>
+      <table class="table table-hover table-condensed">
+        <thead>
+          <th>Name</th>
+          <th>Number of Votes</th>
+          <th>Percent of Votes</th>
+          <th>State</th>
+          <th>District</th>
+          <th>
+        </thead>
+      </table>
+    </div>
+
+    </div><!-- /.container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+  </body>
+</html>
