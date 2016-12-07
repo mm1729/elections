@@ -4,13 +4,13 @@ var logger = require('morgan')
 var router = require('./router/router')
 var app = express()
 
-const port = 80
+app.set('port', (process.env.PORT || 3000))
 
 app.use(express.static(path.join(__dirname, 'public')))
 console.log(path.join(__dirname, 'public'))
 app.use('/', router)
 
-app.listen(port, function() {
+app.listen(app.get('port'), function() {
     console.log('Elections server listening on port ' + port)
 })
 
