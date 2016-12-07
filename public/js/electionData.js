@@ -161,9 +161,12 @@ function getDataFromServer(year, electionType) {
         designation = 'Other';
       }
 
-      console.log(electionType + "  " + year)
-      data[electionType][year][state]["fillKey"] = designation
-      data[electionType][year][state]["party"] = designation
+      //console.log(electionType + "  " + year)
+      if(data[electionType][year][state]) {
+        data[electionType][year][state]["fillKey"] = designation
+        data[electionType][year][state]["party"] = designation
+      }
+
       /*data[electionType][year][state] = {
         "fillKey" : designation,
         "party":  designation
@@ -198,7 +201,7 @@ function getDataFromServer(year, electionType) {
       console.log("post: ");
       console.log(data['house'][2006]);
     }*/
-    //updateMap(electionType, year);
+    updateMap(electionType, year);
     //updateMap('house', 2006); // set it to default back
     //updateMap('senate', 2006);
     //updateMap('presidential', 2008);
@@ -250,11 +253,11 @@ function modalData(state, year, electionType) {
   })
   .done(function(res) {
     var data = res.data;
-    var modalhtml = "<div>";
+    var modalhtml = "<table class='table table-hover table-condensed'><thead><th>Name</th><th>Party</th><th>Percent Won</th><tbody>";
     for (i in data) {
-      modalhtml+= "<div>" + i + " " + data[i].party + " " + data[i].incumbent + " " + data[i].per_votes + "</div>";
+      modalhtml+= "<tr><td>" + i + "</td><td>" + data[i].party +  "</td><td> " + (data[i].per_votes*100).toFixed(2) + "</td></tr>";
     }
-    modalhtml+="</div>";
+    modalhtml+="</tbody></table>";
     $('#modal-data').html(modalhtml);
   })
   .fail(function(err) {
@@ -271,7 +274,7 @@ function mapHandler(datamap) {
 
     // setting up modal info
     $('#stateViewTitle').text(state + ' in ' + year + ' ' + mapType + ' elections');
-
+    console.log(data[mapType][year][state])
     // open modal
     // clear data
     $('#modalData>div').empty();

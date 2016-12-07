@@ -238,7 +238,10 @@ function updateElectionView() {
 
 function checkForm() {
   var msg = ""
-  console.log(_state)
+  _state.name = $('#candidateName').val()
+  if(_state.name.length !== 0) {
+    return msg
+  }
   if(_state.house === false && _state.senate === false && _state.presidential === false) {
     msg = "Please select an election type."
   } else if(_state.year.length === 0) {
@@ -258,6 +261,7 @@ function submit() {
   })
   .done(function(res) {
     data = res.data
+    console.log(data)
     processData(data)
   })
   .fail(function(err) {
@@ -309,7 +313,7 @@ function updateDataView() {
   if(_data.presidential.length > 0) {
     for(var i in _data.presidential) {
       var presidentialObj = _data.presidential[i]
-      presidentialHTML += '<tr><td>' + presidentialObj.first_name + " " + presidentialObj.last_name + "</td><td>" + presidentialObj.num_votes + "</td><td>" + presidentialObj.per_votes * 100 + "</td><td>" + presidentialObj.state + "</td><td>" + presidentialObj.year + "</td><td></tr>"
+      presidentialHTML += '<tr><td>' + presidentialObj.first_name + " " + presidentialObj.last_name + "</td><td>" + presidentialObj.num_votes + "</td><td>" + (presidentialObj.per_votes * 100).toFixed(2) + "</td><td>" + presidentialObj.state + "</td><td>" + presidentialObj.year + "</td><td></tr>"
     }
     presidentialHTML = "<h3>Presidential Results</h3>"+ tableStub + presidentialHTML + "</tbody></table>"
   }

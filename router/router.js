@@ -45,7 +45,19 @@ router.get('/searchReq', function(req, res) {
   console.log(query)
   //res.send('hello')
   if(query.name.length !== 0) {
-    res.send('hello')
+    var comma = query.name.indexOf(',')
+    var first_name = ''
+    var last_name = ''
+    if(comma == -1) {
+      last_name = query.name
+    } else {
+      first_name = query.name.substring(comma+1)
+      last_name = query.name.substring(0,comma)
+    }
+
+    db.getHistory(first_name, last_name, function(resp) {
+      res.send(resp)
+    })
   } else {
     db.filter(query.house, query.senate, query.presidential, query.year, query.party, query.states, function(resp){
       //console.log(resp)

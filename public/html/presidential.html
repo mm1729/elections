@@ -41,7 +41,7 @@
       </div>
     </nav>
 
-    <div class=".container">
+    <div class="container">
 	    <div class="form text-center">
 		    <h3>
 			Want to know what your party has to do to win the presidency?
@@ -49,11 +49,10 @@
 		<h4>Type in results from recent/future house and senate elections to see which state your party is predicted to get in the next presidential election!
 		</h4>
 		<div class="well">
-		<h5>	Explaination: the outputed score from your results represent how each the house and senate, present and past, elections predict how likely it is for your party to win that state in the upcoming presidential election. House score is between -1 and 1 (closer to -1 is less liekly) and Senate is between -1 and 1 (1 being very likely). On the bottom is how much your party will most likely have to spend per state for the presidential election, predicted using the house and senate data respecitvely.
-		      
+		<h5>	Explanation: The scores on the right columns are confidence values, which are between 1 and -1, 1 being you will definitely win and -1 meaning you will lose. The first column shows confidence values for house input and the second column shows confidence values for the senate input. On the bottom is how much your party will most likely have to spend per state for the presidential election, predicted using the house and senate data respecitvely.
 		</h5>
 			<h5>
- NOTE: Leaving out state results, results in the use of default values.	
+ NOTE: Leaving out state results, results in the use of default values.
 		</h5>
 		</div>
 	    </div>
@@ -69,7 +68,7 @@
 	    </div>
 
 	    <table class="table table-bordered">
-		<thread>
+		<thead>
 		<tr>
 		<th>State</th>
 		<th>House: # of districts won</th>
@@ -79,7 +78,7 @@
 		</tr>
 		</thread>
 		<tbody id="table_body">
-	
+
 		</tbody>
 	    </table>
 	    <table class="table table-bordered">
@@ -95,12 +94,14 @@
 		<tbody>
 	    </table>
 	    <div class ="form text-center">
-	    
-		<button id="submit">submit</button>
-	    </div>
-	
 
-    
+		<button class="btn btn-lg btn-success" id="submit" name="submit">Submit</button>
+    <br>
+    <br>
+	    </div>
+
+
+
     </div><!-- /.container -->
 
     <!-- Bootstrap core JavaScript

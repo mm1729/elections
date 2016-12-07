@@ -165,7 +165,7 @@ function getStateDistrictStub(states, electionType) {
         stateStub += "district = '" + districts[i] + "' or "
       }
       if(districts.length === 0) { // backtrack " and ("
-        stateStub = stateStub.substring(0, stateStub.length - 6)
+        stateStub += "district <> 'PR' and district <> 'SS')"
       } else { // backtract " or "
         stateStub = stateStub.substring(0, stateStub.length - 4)
         stateStub += ')'
@@ -375,6 +375,34 @@ db.getSenateStatistic = function(party,state,input,next){
 
 	})
 
+}
+
+db.getHistory = function(first_name, last_name, next) {
+  pool.getConnection(function(err,connection){
+		if(err){
+			next({'err':err});
+		}
+
+    var name_stub = "last_name LIKE" + mysql.escape(last_name)
+    if(first_name.length !== 0) {
+      name_stub += " and first_name LIKE" + mysql.escape(first_name)
+    }
+		var query = "select * from mega_table where " +name_stub
+
+		connection.query(query,function(err,rows,fields){
+			connection.release()
+			if(!err){
+				next({'data':rows})
+			}
+			else{
+				next({'err':err})
+			}
+		})
+		connection.on('on',function(err){
+			next({'err':err})
+		})
+
+	})
 }
 
 module.exports = db

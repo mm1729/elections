@@ -12,7 +12,7 @@ function listenSubmit(){
 			alert("Please specify pary: R for republican or D for democrat")
 			return
 		}
-		$("#table_body").find('tr').each(function(i,el){	
+		$("#table_body").find('tr').each(function(i,el){
 			var tds = $(this).find('td')
 			var row = $(this)
 			var state = tds.eq(0).text()
@@ -30,7 +30,7 @@ function listenSubmit(){
 				if(resp.score == null || resp.score==undefined){
 					resp.score = -1
 				}
-				row.find("#house_score").html("<p>"+resp.score+"</p>")
+				row.find("#house_score").html("<p>"+(resp.score).toFixed(2)+"</p>")
 			})
 			$.ajax({
 				type: "GET",
@@ -43,10 +43,10 @@ function listenSubmit(){
 				if(resp.score == null || resp.score==undefined){
 					resp.score = -1
 				}
-				row.find("#senate_score").html("<p>"+resp.score+"</p>")
+				row.find("#senate_score").html("<p>"+(resp.score).toFixed(2)+"</p>")
 			})
-			
-		
+
+
 		})
 		$.ajax({
 			type : "GET",
@@ -79,7 +79,7 @@ function listenSubmit(){
 
 			})
 
-		
+
 
 	})
 
