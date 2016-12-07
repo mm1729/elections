@@ -101,7 +101,6 @@ $("#state").click(function(event) {
     var minMax = getMinMaxDistricts(state)
     var minDistrict = minMax[0]
     var maxDistrict = minMax[1]
-    console.log(minDistrict, maxDistrict)
     for(var j = parseInt(minDistrict); j <= parseInt(maxDistrict); j++) {
       var dname = ""+j
       if(dname.length < 2) dname = "0" + dname
@@ -110,9 +109,6 @@ $("#state").click(function(event) {
     dhtml+='</select> </div></div>'
     $('#districts').append(dhtml)
   }
-  console.log(newStates)
-  console.log(_state.states)
-  console.log(remStates)
 })
 
 function getMinMaxDistricts(state) {

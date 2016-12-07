@@ -11,7 +11,7 @@ console.log(path.join(__dirname, 'public'))
 app.use('/', router)
 
 app.listen(app.get('port'), function() {
-    console.log('Elections server listening on port ' + port)
+    console.log('Elections server listening on port ' + app.get('port'))
 })
 
 
