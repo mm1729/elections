@@ -1,4 +1,4 @@
-var data = {
+data = {
   "house" : {},
   "senate" : {},
   "presidential" : {}
@@ -21,6 +21,7 @@ function() {
   $('ul.yearSelector>li').click(function(event) {
     var mapType = $(this).closest('ul.yearSelector').attr('id').substring(3);
     var year = $(this).text();
+    console.log(mapType + " " + year)
     updateMap(mapType, year);
   });
 }
@@ -29,6 +30,8 @@ function() {
 function updateMap(mapType, year) {
   //console.log(data);
   if(mapType == 'house') {
+    console.log('updating to : ')
+    console.log(data.house)
     houseMap.updateChoropleth(data.house[year]);
   } else if(mapType == 'senate') {
     senateMap.updateChoropleth(data.senate[year]);
@@ -76,19 +79,17 @@ function initData() {
     if (data.hasOwnProperty(key)) {
       var allYearsData = {};
       if(key == "house" || key == "senate") {
-        allYearsData["2006"] = legendData;
-        allYearsData["2010"] = legendData;
-        allYearsData["2014"] = legendData;
+        allYearsData["2006"] = jQuery.extend(true, {}, legendData);
+        allYearsData["2010"] = jQuery.extend(true, {}, legendData);
+        allYearsData["2014"] = jQuery.extend(true, {}, legendData);
       }
-      allYearsData["2008"] = legendData;
-      allYearsData["2012"] = legendData;
+      allYearsData["2008"] = jQuery.extend(true, {}, legendData);
+      allYearsData["2012"] = jQuery.extend(true, {}, legendData);
 
       data[key] = allYearsData;
 
     }
   }
-  console.log("allYearsData: ");
-  console.log(data.house['2006']['AK']);
 }
 
 function getDataFromServer(year, electionType) {
@@ -99,10 +100,12 @@ function getDataFromServer(year, electionType) {
     cache: true,
   })
   .done(function(res) {
-    console.log(data.house['2006']['AK']);
+    //console.log(data.house['2006']['AK']);
     var legendData = {};
     var sdata = res.data;
-    console.log("------------------------------------------")
+    //console.log(year + " " + electionType)
+    //console.log(sdata)
+    /*console.log("------------------------------------------")
     console.log("num states: " + Object.keys(sdata).length)
     if(year == 2006 && electionType == 'house') {
       console.log("pre: ");
@@ -116,16 +119,16 @@ function getDataFromServer(year, electionType) {
         }
       }
       console.log(none_party);
-    }
-
+    }*/
+    console.log(data)
     for(var i in sdata) {
       var state = i;
       var demCount = 0;
       var repCount = 0;
       var others = 0;
-      //console.log("state: " + state + " data: " + sdata[i].length);
       for(var j in sdata[i]) {
         var party = sdata[i][j];
+        //console.log(j + " " + party)
         if(party === 'D' || party === 'DEM' || party === 'DFL' || party == 'DNL') {
           demCount++;
         } else if(party === 'R' || party === 'CON' || party === 'REP' || party === 'GOP') {
@@ -158,14 +161,30 @@ function getDataFromServer(year, electionType) {
         designation = 'Other';
       }
 
-      data[electionType][year][state] = {
+      console.log(electionType + "  " + year)
+      data[electionType][year][state]["fillKey"] = designation
+      data[electionType][year][state]["party"] = designation
+      /*data[electionType][year][state] = {
         "fillKey" : designation,
         "party":  designation
-      };
+      };*/
+      //console.log(data[electionType][year][state])
+      /*console.log(data['house'][year][state])
+      console.log(data['senate'][year][state])
+      console.log(data['presidential'][year][state])*/
     }
-
+    if(electionType == 'house' && year == 2008) {
+      console.log("house: ")
+      console.log(data[electionType][year])
+    }
+    if(electionType == 'presidential' && year == 2008) {
+      console.log("presidential: ")
+      console.log(data[electionType][year])
+    }
+    //console.log(data[electionType][2006])
+    //console.log(data[electionType][2008])
     //data[electionType][year] = legendData;
-    var none_party = 0;
+    /*var none_party = 0;
     for(var i in data[electionType][year]) {
       console.log(i+ " " +data[electionType][year][i].party);
       if(data[electionType][year][i].party == "None") {
@@ -178,11 +197,11 @@ function getDataFromServer(year, electionType) {
     if(year == 2006 && electionType == 'house') {
       console.log("post: ");
       console.log(data['house'][2006]);
-    }
-    updateMap(electionType, year);
-    updateMap('house', 2006); // set it to default back
-    updateMap('senate', 2006);
-    updateMap('presidential', 2008);
+    }*/
+    //updateMap(electionType, year);
+    //updateMap('house', 2006); // set it to default back
+    //updateMap('senate', 2006);
+    //updateMap('presidential', 2008);
     //console.log(legendData);
     return legendData;
   })
