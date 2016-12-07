@@ -5,25 +5,40 @@ var _state = {
   "presidential": false,
   "year": [],
   "party": [],
-  "states": {} // {abbr:"" , districts:[]}
+  "states": [] // {abbr:"" , districts:[]}
 }
 
 var _data = {
-  "house": {},
-  "senate": {},
-  "presidential": {},
+  "house": [],
+  "senate": [],
+  "presidential": [],
   "parties": [], // all parties - name and abbr
   "states": [] // all states - name and abbr and districts - min to max
 }
 
 $(document).ready(function(){
   // get parties and states, districts
+  $('#err').hide()
   initData();
   listenStates();
   listenDistricts();
   listenParties();
   listenYears();
   listenElectionType();
+  $('button#submit').click(function(event) {
+    event.preventDefault();
+    $('#err').hide()
+    var err = checkForm();
+    if(err !== '') {
+      var html = '<div class="alert alert-danger">' + err + '</div';
+      $('#err').html(html)
+      $('#err').show()
+    } else {
+      submit();
+      removeAllDistricts();
+      $("form")[0].reset();
+    }
+  })
 });
 
 function initData() {
@@ -80,8 +95,11 @@ function listenStates() {
       selectedStates[i] = selectedStates[i].substring(0, 2);
     }
 
-    var _states = Object.keys(_state.states)
-    console.log(_states)
+    var _states = []
+    for(var s in _state.states) {
+      _states.push(_state.states[s].abbr)
+    }
+
     var newStates = selectedStates.filter(function(value) {
       return !_states.includes(value)
     });
@@ -89,6 +107,7 @@ function listenStates() {
     var remStates = _states.filter(function(value) {
       return !selectedStates.includes(value)
     })
+
     // push values needed
     Array.prototype.push.apply(_states, newStates)
     // delete removed values
@@ -96,22 +115,22 @@ function listenStates() {
       return !remStates.includes(value)
     })
 
-    for(var s in remStates) {
-      delete _state.states[remStates[s]]
-    }
-
-    var preStates = Object.keys(_state.states)
-    for(var s in _states) {
-      var st = _states[s]
-      if(!preStates.includes(st)) {
-        console.log(st)
-        _state.states[st] = []
+    for(var i = 0; i < newStates.length; i++) {
+      var st = newStates[i]
+      if(!_state.states.includes(st)) {
+        console.log("adding: " + st)
+        _state.states.push({"abbr" : st, "districts": []})
       }
     }
+
+    _state.states = _state.states.filter(function(value) {
+      return !remStates.includes(value.abbr)
+    })
 
     // remove remDistricts
     for(var i in remStates) {
       var state = remStates[i]
+      console.log('removing' + state)
       $('div#'+state).remove()
     }
 
@@ -131,7 +150,12 @@ function listenStates() {
       dhtml+='</select> </div></div>'
       $('#districts').append(dhtml)
     }
+    updateElectionView()
   })
+}
+
+function removeAllDistricts() {
+  $('#districts').html('')
 }
 
 
@@ -139,7 +163,6 @@ function getMinMaxDistricts(state) {
   var obj = _data.states.filter(function(st) {
     return st.abbr === state
   })[0]
-  console.log(obj)
   return [obj.min_district, obj.max_district]
 }
 
@@ -150,15 +173,10 @@ function listenDistricts() {
     if(state === 'districts') return // this is a click on outer div
 
     var selected = $('div#'+state+" select").val()
-    var _states = Object.keys(_state.states)
-    var arr = _states.filter(function(value) {
-      console.log(value)
-      return value === state
-    })
-    if(arr.length === 0) { // does not exist in states
-      console.log('no state')
-    } else {
-      _state.states[arr[0]] = selected
+    for(var i = 0; i < _state.states.length; i++) {
+      if(_state.states[i].abbr == state) {
+        _state.states[i].districts = selected
+      }
     }
   })
 }
@@ -181,7 +199,7 @@ function listenYears() {
     for(var i = 0; i < length; i++) {
       arr.push(yearObj[i].attributes.value.value)
     }
-    _state.party = arr
+    _state.year = arr
     console.log(_state.party)
   })
 }
@@ -206,6 +224,94 @@ function listenElectionType() {
     if(arr.includes("presidentialElection")) {
       _state.presidential = true
     }
-    console.log(_state)
+    updateElectionView();
   })
+}
+
+function updateElectionView() {
+  if(_state.house === false) {
+    $('#districts').hide()
+  } else {
+    $('#districts').show()
+  }
+}
+
+function checkForm() {
+  var msg = ""
+  console.log(_state)
+  if(_state.house === false && _state.senate === false && _state.presidential === false) {
+    msg = "Please select an election type."
+  } else if(_state.year.length === 0) {
+    msg += " Please select atleast an year."
+  } else if(_state.party.length === 0) {
+    msg += " Please select atleast one party."
+  }
+  return msg
+}
+
+function submit() {
+  console.log(JSON.stringify(_state))
+  $.ajax({
+    type: "GET",
+    url: "/searchReq",
+    data: encodeURIComponent(JSON.stringify(_state))
+  })
+  .done(function(res) {
+    data = res.data
+    processData(data)
+  })
+  .fail(function(err) {
+    console.log(err)
+  })
+
+}
+
+function processData(data) {
+  _data.house = []
+  _data.senate = []
+  _data.presidential = []
+  for(var i in data) {
+    var obj = data[i]
+    if(obj.district == 'SS') {
+      _data.senate.push(obj)
+    } else if(obj.district == 'PR') {
+      _data.presidential.push(obj)
+    } else {
+      _data.house.push(obj)
+    }
+  }
+  updateDataView();
+}
+
+function updateDataView() {
+  var houseTableStub =   '<table class="table table-hover table-condensed"><thead><th>Name</th><th>Number of Votes</th><th>Percent of Votes</th><th>State</th><th>District</th><th>Year</th></thead><tbody>'
+  var tableStub = '<table class="table table-hover table-condensed"><thead><th>Name</th><th>Number of Votes</th><th>Percent of Votes</th><th>State</th><th>Year</th></thead><tbody>'
+
+  var houseHTML = ''
+  if(_data.house.length > 0) {
+    for(var i in _data.house) {
+      var houseObj = _data.house[i]
+      houseHTML += '<tr><td>' + houseObj.first_name + " " + houseObj.last_name + "</td><td>" + houseObj.num_votes + "</td><td>" + houseObj.per_votes * 100 + "</td><td>" + houseObj.state + "</td><td>" + houseObj.district + "</td><td>" + houseObj.year + "</td><td></tr>"
+    }
+    houseHTML = "<h3>House Results</h3>"+ houseTableStub + houseHTML + "</tbody></table>"
+  }
+
+  var senateHTML = ''
+  if(_data.senate.length > 0) {
+    for(var i in _data.senate) {
+      var senateObj = _data.senate[i]
+      senateHTML += '<tr><td>' + senateObj.first_name + " " + senateObj.last_name + "</td><td>" + senateObj.num_votes + "</td><td>" + senateObj.per_votes * 100 + "</td><td>" + senateObj.state + "</td><td>" + senateObj.year + "</td><td></tr>"
+    }
+    senateHTML = "<h3>Senate Results</h3>"+ tableStub + senateHTML + "</tbody></table>"
+  }
+
+  var presidentialHTML = ''
+  if(_data.presidential.length > 0) {
+    for(var i in _data.presidential) {
+      var presidentialObj = _data.presidential[i]
+      presidentialHTML += '<tr><td>' + presidentialObj.first_name + " " + presidentialObj.last_name + "</td><td>" + presidentialObj.num_votes + "</td><td>" + presidentialObj.per_votes * 100 + "</td><td>" + presidentialObj.state + "</td><td>" + presidentialObj.year + "</td><td></tr>"
+    }
+    presidentialHTML = "<h3>Presidential Results</h3>"+ tableStub + presidentialHTML + "</tbody></table>"
+  }
+  $('#dataTable').html(houseHTML+senateHTML+presidentialHTML)
 }

@@ -6,6 +6,9 @@ var app = express()
 
 app.set('port', (process.env.PORT || 3000))
 
+app.engine('html', require('ejs').renderFile)
+app.set('view engine', 'html')
+
 app.use(express.static(path.join(__dirname, 'public')))
 console.log(path.join(__dirname, 'public'))
 app.use('/', router)
@@ -18,10 +21,10 @@ app.listen(app.get('port'), function() {
 
 app.use(logger('dev'))
 
-if (app.get('env') === 'development') {
+/*if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.send({
       message: err.message,
       error: err
     });
@@ -31,12 +34,12 @@ if (app.get('env') === 'development') {
   // no stacktraces leaked to user
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.send('error', {
       message: err.message,
       error: {}
     });
   });
-}
+}*/
 
 
 

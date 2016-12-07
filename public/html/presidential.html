@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>US Elections</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/index.css">
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">US Elections</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li ><a href="/search">Search Data</a></li>
+            <li class="active"><a href="/president">How to make a President?</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class=".container">
+	    <div class="form text-center">
+		    <h3>
+			Want to know what your party has to do to win the presidency?
+		    </h3>
+		<h4>Type in results from recent/future house and senate elections to see which state your party is predicted to get in the next presidential election!
+		</h4>
+		<div class="well">
+		<h5>	Explaination: the outputed score from your results represent how each the house and senate, present and past, elections predict how likely it is for your party to win that state in the upcoming presidential election. House score is between -1 and 1 (closer to -1 is less liekly) and Senate is between -1 and 1 (1 being very likely). On the bottom is how much your party will most likely have to spend per state for the presidential election, predicted using the house and senate data respecitvely.
+		      
+		</h5>
+			<h5>
+ NOTE: Leaving out state results, results in the use of default values.	
+		</h5>
+		</div>
+	    </div>
+	    <div class="form text-center">
+		    <form class="form-horizontal">
+			<div class="form-group">
+				<label for="party" class ="col-sm-2 col-sm-offset-1 control-label"> Your Party('R'/'D')</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" id="party_type">
+				</div>
+			</div>
+		    </form>
+	    </div>
+
+	    <table class="table table-bordered">
+		<thread>
+		<tr>
+		<th>State</th>
+		<th>House: # of districts won</th>
+		<th>Senate: %(decimal form) votes</th>
+		<th>Confidence:house</th>
+		<th>Confidence:senate</th>
+		</tr>
+		</thread>
+		<tbody id="table_body">
+	
+		</tbody>
+	    </table>
+	    <table class="table table-bordered">
+		<thread>
+		<tr>
+		<th>Election(predicted with)</th>
+		<th>Expense(average expense per state ($)</th>
+		</tr>
+		</thread>
+		<tbody id="expense_body">
+		<tr id="house_exp"></tr>
+		<tr id="senate_exp"></tr>
+		<tbody>
+	    </table>
+	    <div class ="form text-center">
+	    
+		<button id="submit">submit</button>
+	    </div>
+	
+
+    
+    </div><!-- /.container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="/js/presidential.js"></script>
+
+  </body>
+</html>
