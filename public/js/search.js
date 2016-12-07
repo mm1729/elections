@@ -313,5 +313,10 @@ function updateDataView() {
     }
     presidentialHTML = "<h3>Presidential Results</h3>"+ tableStub + presidentialHTML + "</tbody></table>"
   }
-  $('#dataTable').html(houseHTML+senateHTML+presidentialHTML)
+
+  var totalHTML = houseHTML+senateHTML+presidentialHTML
+  if(totalHTML.length === 0) {
+    totalHTML = "<h3 class='text-center'>No Results</h3>"
+  }
+  $('#dataTable').html(totalHTML)
 }
