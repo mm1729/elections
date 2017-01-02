@@ -82,18 +82,20 @@
 		</tbody>
 	    </table>
 	    <table class="table table-bordered">
-		<thread>
+		<thead>
 		<tr>
 		<th>Election(predicted with)</th>
 		<th>Expense(average expense per state ($)</th>
 		</tr>
-		</thread>
+		</thead>
 		<tbody id="expense_body">
 		<tr id="house_exp"></tr>
 		<tr id="senate_exp"></tr>
-		<tbody>
+  </tbody>
 	    </table>
 	    <div class ="form text-center">
+      <div id="senate" style="width: 500px; height: 300px;"></div>
+      <div id="house" style="width: 500px; height: 300px;"></div>
 
 		<button class="btn btn-lg btn-success" id="submit" name="submit">Submit</button>
     <br>
@@ -109,7 +111,14 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="/js/presidential.js"></script>
+
+    <!-- DataMaps core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+    <script src="/js/datamaps.usa.min.js"></script>
+        <script src="/js/presidential.js"></script>
 
   </body>
 </html>
